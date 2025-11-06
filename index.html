@@ -1,123 +1,157 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cubaclick</title>
-<link rel="stylesheet" href="styles.css" />
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(180deg, #ff7a3d, #ffb36b);
-    color: #fff;
+:root{
+  --bg1:#EA6A2F; --bg2:#F5A35E; --chip:#FFE6C9; --chipTxt:#6A3A15;
+  --card:#FAD9B8; --text:#1c120d;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  background: radial-gradient(80% 60% at 70% 20%, var(--bg2), var(--bg1));
+  color:#fff;
+}
+.wrap{max-width:980px; margin:0 auto; padding:18px 16px 64px}
+.topbar{
+  display:flex; align-items:center; justify-content:flex-end; gap:12px;
+  min-height:40px;
+}
+.cart{
+  display:inline-flex; align-items:center; gap:8px;
+  background:#fff; color:#333; padding:8px 14px; border-radius:16px;
+  text-decoration:none; font-weight:700; box-shadow:0 6px 16px rgba(0,0,0,.15);
+}
+.cart svg{width:20px;height:20px}
+.hero{
+  position:relative; margin-top:6px; padding:56px 8px 24px;
+  text-align:center;
+}
+.plate{
+  width:min(640px,95vw); aspect-ratio:1/1; margin:0 auto;
+  border-radius:50%;
+  background:
+     radial-gradient(70% 70% at 35% 25%, rgba(255,255,255,.18), rgba(255,255,255,0) 60%),
+     radial-gradient(closest-side, rgba(255,255,255,.12), rgba(255,255,255,0) 70%),
+     #9b6a45;
+  box-shadow: inset 0 0 0 10px rgba(255,255,255,.3),
+              inset 0 0 80px rgba(0,0,0,.35);
+  position:relative; overflow:hidden; backdrop-filter: blur(2px);
+  border:1.5px solid rgba(255,255,255,.45);
+}
+.food{
+  position:absolute; inset:10% 10% 10% 10%;
+  background:
+    url('https://images.unsplash.com/photo-1604909052743-90e8b9fc5f75?q=80&w=1200&auto=format&fit=crop') center/cover no-repeat; /* pollo/muslos */
+  filter:saturate(1.05) contrast(1.02);
+  border-radius:28px; opacity:.92; mix-blend-mode:normal;
+}
+.brand{
+  position:absolute; inset:0; display:grid; place-items:center;
+  pointer-events:none;
+}
+.brand h1{
+  margin:0; line-height:.95;
+  font-size: min(16vw, 128px);
+  font-weight:900; letter-spacing:.5px;
+  color:#fff; text-shadow:0 6px 16px rgba(0,0,0,.25);
+}
+.actions{
+  display:flex; justify-content:center; gap:14px; margin-top:22px; flex-wrap:wrap;
+}
+.btn{
+  background:var(--chip); color:var(--chipTxt);
+  padding:12px 22px; border-radius:16px; text-decoration:none;
+  font-weight:800; font-size:18px; box-shadow:0 8px 18px rgba(0,0,0,.18);
+}
+.btn.ghost{
+  background:rgba(255,255,255,.55); color:#6A3A15; backdrop-filter: blur(2px);
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    font-size: 28px;
-    font-weight: bold;
+.section{margin-top:28px}
+.section h2{
+  color:#4a2411; text-shadow:0 1px 0 rgba(255,255,255,.4);
+  background:linear-gradient( to bottom, #ffecda, transparent 70%);
+  display:inline-block; padding:6px 10px; border-radius:10px;
 }
-
-.header img {
-    width: 40px;
+.cards{
+  margin-top:14px; display:grid; gap:14px;
+  grid-template-columns: repeat( auto-fill, minmax(220px,1fr) );
 }
-
-.main-title {
-    text-align: center;
-    font-size: 42px;
-    font-weight: bold;
-    margin-top: 20px;
+.card{
+  background:var(--card); color:var(--text);
+  border-radius:18px; padding:12px; box-shadow:0 10px 24px rgba(0,0,0,.18);
 }
-
-.subtitle {
-    text-align: center;
-    margin: 10px auto;
-    font-size: 20px;
-    width: 85%;
+.card .img{
+  height:160px; border-radius:14px; background:#fff;
+  display:grid; place-items:center; overflow:hidden;
 }
-
-.button-center {
-    text-align: center;
-    margin-top: 25px;
-}
-
-.btn {
-    display: inline-block;
-    background: #ffe4c4;
-    color: #a33d00;
-    padding: 12px 22px;
-    border-radius: 20px;
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.section-title {
-    margin-top: 40px;
-    font-size: 30px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.categories {
-    margin: 25px auto;
-    width: 90%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.categories a {
-    background: #fff3e6;
-    color: #a33d00;
-    padding: 12px 18px;
-    margin: 8px;
-    border-radius: 14px;
-    font-size: 20px;
-    text-decoration: none;
-    font-weight: bold;
-}
+.card .img--pollo{ background:
+  url('https://images.unsplash.com/photo-1625944527548-4e4db02aa9a8?q=80&w=1200&auto=format&fit=crop') center/cover no-repeat;}
+.card .img--huevos{ background:
+  url('https://images.unsplash.com/photo-1517959105821-eaf2591984c2?q=80&w=1200&auto=format&fit=crop') center/cover no-repeat;}
+.card .img--refresco{ background:
+  url('https://images.unsplash.com/photo-1589190998340-37a2f3250f82?q=80&w=1200&auto=format&fit=crop') center/cover no-repeat;}
+.card h3{margin:10px 6px 4px; font-size:20px}
+.card .price{font-weight:900; margin:0 6px 6px; font-size:18px}
+.small{font-size:14px; opacity:.9}
+.footerSpace{height:40px}
+a{text-decoration:none}
 </style>
-
 </head>
 
 <body>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="cart" href="carrito.html" aria-label="Carrito">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M6 6h15l-1.5 8.5a2 2 0 0 1-2 1.5H8a2 2 0 0 1-2-1.5L4 3H2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="9" cy="21" r="1.8" /><circle cx="18" cy="21" r="1.8"/>
+        </svg>
+        Carrito
+      </a>
+    </div>
 
-<!-- ENCABEZADO -->
-<div class="header">
-    <span>🇨🇺 Cubaclick</span>
-</div>
+    <section class="hero">
+      <div class="plate">
+        <div class="food"></div>
+        <div class="brand"><h1>Cubaclick</h1></div>
+      </div>
 
-<!-- TÍTULO PRINCIPAL -->
-<div class="main-title">Tu dinero y tus productos llegan a casa 🇨🇺</div>
+      <div class="actions">
+        <a class="btn" href="productos.html">Ver productos</a>
+        <a class="btn ghost" href="combos.html">Combos</a>
+        <a class="btn" href="remesas.html">Remesas</a>
+      </div>
+    </section>
 
-<div class="subtitle">
-    Rápido, seguro y con amor. Remesas confiables y combos de primera.
-</div>
+    <section class="section">
+      <h2>⭐ Productos destacados</h2>
+      <div class="cards">
+        <article class="card">
+          <div class="img img--pollo" aria-hidden="true"></div>
+          <h3>Pollo (1kg)</h3>
+          <p class="price">$12</p>
+        </article>
+        <article class="card">
+          <div class="img img--huevos"></div>
+          <h3>Cartón huevos</h3>
+          <p class="price">$14</p>
+        </article>
+        <article class="card">
+          <div class="img img--refresco"></div>
+          <h3>Refresco</h3>
+          <p class="price">$20</p>
+        </article>
+      </div>
+      <p class="small" style="margin-top:10px">* Imágenes de ejemplo. Puedes cambiarlas por fotos de tus productos.</p>
+    </section>
 
-<div class="button-center">
-    <a class="btn" href="productos.html">Ver productos</a>
-</div>
-
-<!-- CATEGORÍAS -->
-<div class="section-title">🛒 Categorías disponibles</div>
-
-<div class="categories">
-    <a href="carnes.html">🥩 Carnes</a>
-    <a href="cocina.html">🧂 Ingredientes de cocina</a>
-    <a href="desayunos.html">🥐 Desayunos</a>
-    <a href="bebidas.html">🥤 Bebidas</a>
-    <a href="aseo.html">🧼 Aseo</a>
-    <a href="enlatados.html">🥫 Enlatados</a>
-    <a href="granos.html">🌾 Granos y pastas</a>
-    <a href="chuches.html">🍬 Chuches</a>
-    <a href="otros.html">📦 Otros productos</a>
-</div>
-
+    <div class="footerSpace"></div>
+  </div>
 </body>
 </html>
