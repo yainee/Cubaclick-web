@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Cubaclick — Remesas & Combos</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><img src="assets/flag.svg" class="flag" alt="Cuba"/><span>Cubaclick</span></div>
+    <div class="actions">
+      <button class="btn pill" id="btnWA">WhatsApp</button>
+      <button class="icon-btn" id="btnCart" aria-label="Carrito"><img src="assets/cart.svg" alt="Carrito"/><span class="badge" id="cartCount">0</span></button>
+    </div>
+  </header>
+  <main>
+    <section class="hero" id="hero">
+      <div class="bg"></div>
+      <div class="plate-wrapper"><img src="assets/plate.svg" alt="Plato Cubaclick" class="plate"/></div>
+      <div class="hero-text">
+        <h1>Tu dinero y tus productos <br/><span class="nowrap">llegan a casa 🇨🇺</span></h1>
+        <p>Rápido, seguro y con amor. Remesas confiables, combos y productos de primera.</p>
+        <div class="cta-row">
+          <a href="#productos" class="btn primary">Ver productos</a>
+          <a href="#remesas" class="btn ghost">Remesas</a>
+          <a href="#combos" class="btn ghost">Combos</a>
+        </div>
+      </div>
+    </section>
+    <section id="productos" class="section">
+      <div class="section-title"><span class="star">★</span><h2>Productos destacados</h2></div>
+      <div class="cards">
+        <article class="card"><div class="thumb pollo"></div><h3>Pollo (1kg)</h3><div class="price">$12</div><button class="btn add" data-id="pollo" data-nombre="Pollo (1kg)" data-precio="12">Agregar</button></article>
+        <article class="card"><div class="thumb cerdo"></div><h3>Carne de cerdo (1kg)</h3><div class="price">$15</div><button class="btn add" data-id="cerdo" data-nombre="Carne de cerdo (1kg)" data-precio="15">Agregar</button></article>
+        <article class="card"><div class="thumb aceite"></div><h3>Aceite (1L)</h3><div class="price">$6</div><button class="btn add" data-id="aceite" data-nombre="Aceite (1L)" data-precio="6">Agregar</button></article>
+      </div>
+    </section>
+    <section id="combos" class="section"><h2 class="simple">Combos</h2><p class="muted">Muy pronto verás aquí combos listos para regalar. ✨</p></section>
+    <section id="remesas" class="section">
+      <h2 class="simple">Remesas</h2>
+      <div class="remesas">
+        <button class="btn chip" data-remesa="usd-cup">USD → CUP (100 USD = 40,000 CUP)</button>
+        <button class="btn chip" data-remesa="usd-usd">USD → USD (110 USD → 100 USD)</button>
+        <button class="btn chip" data-remesa="usd-mlc">USD → MLC (100 USD → 100 MLC)</button>
+      </div>
+    </section>
+  </main>
+  <aside class="drawer" id="drawer">
+    <div class="drawer-header"><h3>Tu carrito</h3><button class="icon-btn" id="closeDrawer">✕</button></div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="drawer-footer"><div class="total">Total: <strong id="cartTotal">$0</strong></div><button id="btnCheckout" class="btn primary wide">Confirmar por WhatsApp</button></div>
+  </aside>
+  <script src="app.js"></script>
+</body>
+</html>
