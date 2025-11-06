@@ -1,34 +1,40 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cubaclick — Inicio</title>
-<style>
-  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
-       background:linear-gradient(145deg,#b71c1c,#ff6f00);color:#fff}
-  header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;
-         backdrop-filter:blur(8px)}
-  .brand{font-weight:900;letter-spacing:.4px}
-  a{color:inherit;text-decoration:none}
-  .wrap{max-width:980px;margin:0 auto;padding:16px}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  @media(min-width:720px){.grid{grid-template-columns:repeat(3,1fr)}}
-  .btn, .tile{display:block;padding:16px;border-radius:16px;border:1px solid #ffffff50;
-              background:#ffffff20;backdrop-filter:blur(8px);text-align:center;font-weight:800}
-  .tile:hover{background:#ffffff35}
-  .hero{margin:12px 0 16px;border-radius:24px;padding:18px;border:1px solid #ffffff40;background:#ffffff10}
-  .center{text-align:center}
-  .circle{aspect-ratio:1/1;border-radius:999px;display:grid;place-items:center;margin:0 auto 12px;
-          border:1px solid #ffffff66;background:radial-gradient(50% 50% at 50% 40%, #ffffff2a, #0000)}
-  h1{margin:6px 0 0 0}
-  .back{padding:10px 12px;border:1px solid #ffffff55;border-radius:12px;background:#ffffff22}
-</style></head>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cubaclick</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+
 <body>
-<header><div class="brand">Cubaclick</div><a class="back" href="productos.html">Ver productos →</a></header>
-<div class="wrap">
-  <div class="hero center">
-    <div class="circle" style="width:min(540px,90vw)"><h1>Bienvenid@ a Cubaclick</h1></div>
-    <p>Remesas, combos y mercado para tu familia en Cuba 🇨🇺</p>
-    <p><a class="btn" href="productos.html">🛒 Entrar al catálogo</a></p>
-  </div>
-</div>
-</body></html>
+
+<header class="topbar">
+    <h1 class="logo">🇨🇺 Cubaclick</h1>
+</header>
+
+<section class="hero">
+    <h2>Tu dinero y tus productos llegan a casa 🇨🇺</h2>
+    <p>Rápido, seguro y con amor. Remesas confiables y combos de primera.</p>
+
+    <a class="btn-main" href="productos.html">Ver productos</a>
+</section>
+
+<section class="categorias">
+    <h2>🛒 Categorías disponibles</h2>
+
+    <div class="cat-grid">
+        <a href="carnes.html" class="cat">🥩 Carnes</a>
+        <a href="cocina.html" class="cat">🧂 Ingredientes de cocina</a>
+        <a href="desayunos.html" class="cat">🥐 Desayunos</a>
+        <a href="bebidas.html" class="cat">🥤 Bebidas</a>
+        <a href="aseo.html" class="cat">🧼 Aseo</a>
+        <a href="enlatados.html" class="cat">🥫 Enlatados</a>
+        <a href="granos.html" class="cat">🌾 Granos y pastas</a>
+        <a href="chuches.html" class="cat">🍬 Chuches</a>
+        <a href="otros.html" class="cat">📦 Otros productos</a>
+    </div>
+</section>
+
+</body>
+</html>
