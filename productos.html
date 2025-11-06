@@ -1,41 +1,42 @@
-<!DOCTYPE html>
-<html lang="es"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cubaclick — Productos</title>
-<style>
-  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
-       background:linear-gradient(145deg,#b71c1c,#ff6f00);color:#fff}
-  header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;
-         backdrop-filter:blur(8px)}
-  .brand{font-weight:900;letter-spacing:.4px}
-  a{color:inherit;text-decoration:none}
-  .wrap{max-width:980px;margin:0 auto;padding:16px}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  @media(min-width:720px){.grid{grid-template-columns:repeat(3,1fr)}}
-  .btn, .tile{display:block;padding:16px;border-radius:16px;border:1px solid #ffffff50;
-              background:#ffffff20;backdrop-filter:blur(8px);text-align:center;font-weight:800}
-  .tile:hover{background:#ffffff35}
-  .hero{margin:12px 0 16px;border-radius:24px;padding:18px;border:1px solid #ffffff40;background:#ffffff10}
-  .center{text-align:center}
-  .circle{aspect-ratio:1/1;border-radius:999px;display:grid;place-items:center;margin:0 auto 12px;
-          border:1px solid #ffffff66;background:radial-gradient(50% 50% at 50% 40%, #ffffff2a, #0000)}
-  h1{margin:6px 0 0 0}
-  .back{padding:10px 12px;border:1px solid #ffffff55;border-radius:12px;background:#ffffff22}
-</style></head>
-<body>
-<header><a class="back" href="index.html">← Inicio</a><div class="brand">Catálogo</div><div style="width:44px"></div></header>
-<div class="wrap">
-  <h1 style="margin:6px 0 14px 0">Selecciona una categoría</h1>
-  <div class="grid">
-    <a class="tile" href="carnes.html">🍖 Carnes</a>
-    <a class="tile" href="cocina.html">🧂 Ingredientes de cocina</a>
-    <a class="tile" href="desayunos.html">🥐 Desayunos</a>
-    <a class="tile" href="bebidas.html">🥤 Bebidas</a>
-    <a class="tile" href="aseo.html">🧼 Aseo</a>
-    <a class="tile" href="enlatados.html">🥫 Enlatados</a>
-    <a class="tile" href="granos.html">🌾 Granos y pastas</a>
-    <a class="tile" href="chuches.html">🍬 Chuches</a>
-    <a class="tile" href="otros.html">📦 Otros productos</a>
+<!DOCTYPE html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cubaclick • Productos</title>
+<link rel="stylesheet" href="styles.css">
+</head><body>
+<header class="topbar">
+  <a class="brand" href="index.html">Cubaclick</a>
+  <nav class="nav">
+    <a class="active" href="products.html">Productos</a>
+    <a href="combos.html">Combos</a>
+    <a href="remesas.html">Remesas</a>
+    <a href="inventario.html">Inventario</a>
+    <a class="cartbtn" href="#carrito">🛒 <b id="cartCount">0</b></a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <h1>Productos por categoría</h1>
+
+  <!-- Filtros -->
+  <div class="tabs" id="catTabs">
+    <!-- categorias se inyectan desde data.js -->
   </div>
-</div>
+
+  <!-- Grid -->
+  <div id="grid" class="grid"></div>
+
+  <!-- Carrito -->
+  <section id="carrito" class="cartbox">
+    <h2>🛒 Carrito</h2>
+    <div id="cartItems"></div>
+    <div class="cartsum">
+      <div>Total: <b id="cartTotal">$0.00</b></div>
+      <button class="btn primary" id="btnCheckout">Finalizar venta</button>
+    </div>
+  </section>
+</main>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>initProductsPage();</script>
 </body></html>
