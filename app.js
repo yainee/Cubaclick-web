@@ -1,1 +1,0 @@
-async function ensureCatalog(){const pj=await fetch('productos.json').then(r=>r.json()).catch(_=>null); if(pj) window.CATALOG=pj; const cj=await fetch('combos.json').then(r=>r.json()).catch(_=>null); if(cj) window.COMBOS=cj;} function initProductsPage(){} function initCombosPage(){} function initInventarioPage(){}
