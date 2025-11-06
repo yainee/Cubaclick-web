@@ -1,1 +1,1 @@
-window.CATEGORIES=['Carnes y embutidos','Bebidas','Desayunos','Chuche','Granos y pastas','Aseo','Ingredientes de cocina','Otros']; window.CATALOG=[]; window.COMBOS=[];
+window.CATALOG=[]; window.COMBOS=[];
