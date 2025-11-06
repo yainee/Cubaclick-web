@@ -1,155 +1,304 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Cubaclick</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<title>Cubaclick • Tu tienda y sorpresas</title>
+<meta name="theme-color" content="#d81f26" />
+
 <style>
+  /* ====== Variables de marca ====== */
   :root{
-    --rojo:#e23a2f;
-    --crema:#ffe9cf;
-    --pill:#fff3df;
-    --texto:#2a221a;
+    --cuba-red:#d81f26;
+    --cuba-red-dark:#b0161c;
+    --cuba-gold:#ffdf7e;
+    --ink:#1c1c1c;
+    --muted:#6b6b6b;
+    --bg:#fff8f4;
+    --card:#ffffff;
+    --radius:18px;
+    --shadow:0 10px 22px rgba(0,0,0,.12), 0 6px 12px rgba(0,0,0,.08);
   }
+
+  /* ====== Reset suave ====== */
   *{box-sizing:border-box}
-  html,body{margin:0;height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial}
   body{
-    color:var(--texto);
-    background: radial-gradient(1200px 800px at 70% 10%, rgba(255,200,140,.35), transparent 60%),
-                radial-gradient(1000px 700px at 10% 0%, rgba(255,160,120,.35), transparent 55%),
-                linear-gradient(180deg, #f48a3d, #c94a2e 60%, #a33b25);
-    overflow-x:hidden;
+    margin:0;
+    font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.2;
   }
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
 
-  /* HERO */
-  .hero{
-    position:relative;
-    min-height:72vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:64px 16px 24px;
-    text-align:center;
-    isolation:isolate;
+  /* ====== Header sticky con carrito ====== */
+  header{
+    position:sticky; top:0; z-index:20;
+    backdrop-filter:saturate(1.1) blur(6px);
+    background:rgba(255,255,255,.72);
+    border-bottom:1px solid rgba(0,0,0,.06);
   }
-  /* Fondo foto */
-  .hero::before{
-    content:"";
-    position:absolute; inset:0;
-    background:
-      radial-gradient(800px 800px at 50% 35%, rgba(255,255,255,.25), rgba(0,0,0,0) 60%),
-      url("./39189F9A-5590-4F73-852E-13DAD20DC5A2.png") center/cover no-repeat;
-    opacity:.45;               /* <<< más transparente */
-    z-index:-2;
-    filter:saturate(1.05) contrast(1.05);
+  .bar{
+    max-width:1100px; margin:auto;
+    display:flex; align-items:center; gap:12px;
+    padding:12px 16px;
   }
-  /* Plato/círculo translúcido */
-  .plato{
-    width:min(84vw,560px);
-    aspect-ratio:1/1;
-    border-radius:50%;
-    background:rgba(255,255,255,.06);
-    border:6px solid rgba(255,255,255,.22);
-    box-shadow:
-      inset 0 0 0 1px rgba(0,0,0,.05),
-      0 20px 50px rgba(0,0,0,.20);
-    backdrop-filter: blur(6px) saturate(1.1);
-    display:flex; align-items:center; justify-content:center;
-    position:relative;
+  .logo{
+    font-weight:800; letter-spacing:.3px;
+    font-size:20px; color:var(--cuba-red);
   }
-  .marca{
-    font-size: clamp(40px, 10vw, 92px);
-    font-weight: 800;
-    letter-spacing:.5px;
-    color:#fff;
-    text-shadow:0 6px 18px rgba(0,0,0,.35);
+  .pill{
+    font-size:12px; padding:6px 10px; border-radius:999px;
+    background: #fff2f2; color:var(--cuba-red); border:1px solid #ffd7d7;
   }
-
-  /* “Bienvenidos” animado */
-  .welc{
-    position:absolute;
-    top:18px; left:50%;
-    transform:translateX(-50%);
-    background: rgba(255,255,255,.85);
-    color:#b93224;
-    border-radius:999px;
-    padding:8px 16px;
-    font-weight:700;
-    letter-spacing:.2px;
-    box-shadow:0 8px 20px rgba(0,0,0,.18);
-    animation: popIn .9s ease-out both, float 4s ease-in-out 1.2s infinite;
-  }
-  @keyframes popIn{
-    0%{opacity:0; transform:translateX(-50%) translateY(-8px) scale(.96)}
-    60%{opacity:1}
-    100%{transform:translateX(-50%) translateY(0) scale(1)}
-  }
-  @keyframes float{
-    0%,100%{transform:translateX(-50%) translateY(0)}
-    50%{transform:translateX(-50%) translateY(6px)}
-  }
-
-  /* Botones */
-  .ctaBar{margin-top:22px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
-  .btn{
-    display:inline-block;
-    padding:12px 18px;
-    border-radius:16px;
-    font-weight:700;
-    text-decoration:none;
-    color:#3b2a1e;
-    background:var(--pill);
-    box-shadow:0 10px 20px rgba(0,0,0,.15);
-    border:2px solid rgba(0,0,0,.06);
-  }
-  .btn.pri{background:#ffe0b8; border-color:#ffcfa0}
-  .btn.ghost{background:rgba(255,255,255,.75)}
+  .spacer{flex:1}
   .cart{
-    position:absolute; right:16px; top:14px;
-    background:rgba(255,255,255,.9);
-    padding:10px 14px; border-radius:14px;
-    font-weight:700; box-shadow:0 8px 18px rgba(0,0,0,.18);
+    position:relative; display:flex; align-items:center; gap:8px;
+    padding:10px 14px; border-radius:999px; background:#fff; box-shadow:var(--shadow);
+  }
+  .cart b{
+    background:var(--cuba-red); color:#fff; border-radius:999px; padding:2px 8px; font-size:12px;
   }
 
-  /* Sección productos destacados (placeholder) */
-  .wrap{max-width:1040px;margin:0 auto;padding:10px 16px 40px}
-  h2{color:#2b140c;margin:8px 0 14px;font-size:clamp(22px,5vw,28px)}
-  .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
-  .card{background:rgba(255,255,255,.80); border:1px solid rgba(0,0,0,.06); border-radius:22px; padding:14px; box-shadow:0 15px 28px rgba(0,0,0,.12)}
-  .card h3{margin:.3rem 0 .2rem; font-size:18px}
-  .card .p{font-weight:800}
-  @media (max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}}
-  @media (max-width:600px){.cards{grid-template-columns:1fr}}
+  /* ====== Botón flotante de carrito en móvil ====== */
+  .cart-fab{
+    position:fixed; right:14px; bottom:14px; z-index:30;
+    padding:14px 16px; border-radius:999px; background:var(--cuba-red);
+    color:#fff; box-shadow:var(--shadow);
+  }
+  .hide-mobile{display:block}
+  @media (max-width:760px){ .hide-mobile{display:none} }
+
+  /* ====== Hero ====== */
+  .hero{
+    position:relative; overflow:hidden;
+    background:
+      linear-gradient(180deg, rgba(216,31,38,.20), rgba(216,31,38,.05)),
+      url('https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+    border-radius:0 0 24px 24px;
+  }
+  .hero::after{
+    /* Velo para que el texto siempre se lea */
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.35));
+  }
+  .hero-inner{
+    position:relative; z-index:1; max-width:1100px; margin:auto;
+    padding:46px 16px 28px;
+  }
+  .badge{display:inline-block; padding:8px 14px; border-radius:999px; background:#fff; font-weight:700}
+  .title{
+    margin:14px 0 6px;
+    font-size:40px; font-weight:900; color:#fff;
+    text-shadow: 0 3px 18px rgba(0,0,0,.42), 0 1px 0 rgba(0,0,0,.45);
+    letter-spacing:.2px;
+  }
+  .subtitle{
+    color:#fff; opacity:.95; font-weight:500;
+    margin-bottom:18px;
+  }
+
+  /* ====== Botones rápidos ====== */
+  .quick{
+    display:flex; gap:12px; flex-wrap:wrap;
+  }
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:12px 16px; border-radius:16px; border:1px solid rgba(0,0,0,.08);
+    background:#fff; font-weight:700; box-shadow:var(--shadow);
+  }
+  .btn.red{ background:var(--cuba-red); color:#fff; border-color:transparent }
+  .btn:active{ transform: translateY(1px) scale(.998) }
+
+  /* ====== Bloques ====== */
+  .section{
+    max-width:1100px; margin:20px auto; padding:0 16px;
+  }
+  .section h2{
+    display:flex; align-items:center; gap:8px; font-size:20px;
+    margin:14px 0 12px;
+  }
+  .star{ color:#ffb400 }
+
+  /* ====== Grid de productos ====== */
+  .grid{
+    display:grid; gap:14px;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media (max-width:980px){ .grid{ grid-template-columns: repeat(3,1fr)} }
+  @media (max-width:720px){ .grid{ grid-template-columns: repeat(2,1fr)} }
+  @media (max-width:440px){ .grid{ grid-template-columns: 1fr} }
+
+  .card{
+    background:var(--card); border-radius:var(--radius);
+    box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column;
+  }
+  .card .pic{ aspect-ratio: 4/3; background:#f3f3f3; }
+  .card .body{ padding:12px }
+  .tag{font-size:12px; color:#fff; background:var(--cuba-red); padding:2px 8px; border-radius:999px}
+  .name{ margin:6px 0 8px; font-weight:800 }
+  .price{ font-weight:900; color:var(--cuba-red-dark) }
+  .mini{ font-size:12px; color:var(--muted) }
+
+  /* ====== Footer ====== */
+  footer{
+    margin-top:28px; padding:22px 16px 34px; text-align:center; color:var(--muted);
+  }
 </style>
 </head>
 <body>
 
-<header class="cart">🛒 Carrito (0)</header>
+  <!-- Header -->
+  <header>
+    <div class="bar">
+      <div class="logo">Cubaclick</div>
+      <span class="pill hide-mobile">Bienvenidos</span>
+      <div class="spacer"></div>
+      <a href="#carrito" class="cart hide-mobile" aria-label="Abrir carrito">
+        🛒 Carrito <b id="cartCount">0</b>
+      </a>
+    </div>
+  </header>
 
-<section class="hero">
-  <div class="plato">
-    <div class="welc">Bienvenidos</div>
-    <div class="marca">Cubaclick</div>
-  </div>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="badge">Bienvenidos</span>
+      <h1 class="title">Cubaclick</h1>
+      <p class="subtitle">Tienda, combos y remesas con amor ❤️ — Entregas en Manzanillo y toda Granma.</p>
 
-  <div class="ctaBar" aria-label="Acciones">
-    <a class="btn pri"   href="./productos.html">Ver productos</a>
-    <a class="btn ghost" href="./combos.html">Combos</a>
-    <a class="btn ghost" href="./remesas.html">Remesas</a>
-  </div>
-</section>
+      <div class="quick">
+        <a class="btn red" href="#productos">Ver productos</a>
+        <a class="btn" href="#combos">Combos</a>
+        <a class="btn" href="#remesas">Remesas</a>
+      </div>
+    </div>
+  </section>
 
-<div class="wrap">
-  <h2>⭐ Productos destacados</h2>
-  <div class="cards">
-    <article class="card"><h3>Pollo (1kg)</h3><div class="p">$12</div></article>
-    <article class="card"><h3>Cartón de huevos</h3><div class="p">$14</div></article>
-    <article class="card"><h3>Refresco</h3><div class="p">$20</div></article>
-  </div>
-</div>
+  <!-- Productos destacados -->
+  <section id="productos" class="section">
+    <h2><span class="star">⭐</span> Productos destacados</h2>
 
+    <div class="grid">
+      <!-- Producto 1 -->
+      <article class="card">
+        <img class="pic" src="https://images.unsplash.com/photo-1604908553993-93d79c3b2b36?q=80&w=1200&auto=format&fit=crop" alt="Pollo (1kg)">
+        <div class="body">
+          <span class="tag">Nuevo</span>
+          <div class="name">Pollo (1kg)</div>
+          <div class="price">$12</div>
+          <div class="mini">Cubaclick</div>
+        </div>
+      </article>
+
+      <!-- Producto 2 -->
+      <article class="card">
+        <img class="pic" src="https://images.unsplash.com/photo-1514970745-6e196b3f4d8e?q=80&w=1200&auto=format&fit=crop" alt="Cartón de huevos">
+        <div class="body">
+          <span class="tag">Oferta</span>
+          <div class="name">Cartón de huevos</div>
+          <div class="price">$14</div>
+          <div class="mini">Cubaclick</div>
+        </div>
+      </article>
+
+      <!-- Producto 3 -->
+      <article class="card">
+        <img class="pic" src="https://images.unsplash.com/photo-1603398938378-e54eab446dde?q=80&w=1200&auto=format&fit=crop" alt="Refresco">
+        <div class="body">
+          <span class="tag">Popular</span>
+          <div class="name">Refresco</div>
+          <div class="price">$20 (caja)</div>
+          <div class="mini">Cubaclick</div>
+        </div>
+      </article>
+
+      <!-- Producto 4 -->
+      <article class="card">
+        <img class="pic" src="https://images.unsplash.com/photo-1613478223719-2ab802602423?q=80&w=1200&auto=format&fit=crop" alt="Mayonesa 1000g">
+        <div class="body">
+          <span class="tag">Destacado</span>
+          <div class="name">Mayonesa 1000 g</div>
+          <div class="price">$3.20</div>
+          <div class="mini">Cubaclick</div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Combos -->
+  <section id="combos" class="section">
+    <h2>🧺 Combos</h2>
+    <div class="grid">
+      <article class="card">
+        <img class="pic" src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1200&auto=format&fit=crop" alt="Combo de chuchería">
+        <div class="body">
+          <span class="tag">Cubaclick</span>
+          <div class="name">Combo de chuchería</div>
+          <div class="price">$19</div>
+          <div class="mini">Cantidades personalizadas</div>
+        </div>
+      </article>
+      <article class="card">
+        <img class="pic" src="https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?q=80&w=1200&auto=format&fit=crop" alt="Combo desayuno">
+        <div class="body">
+          <span class="tag">Nuevo</span>
+          <div class="name">Combo desayuno</div>
+          <div class="price">$10.80</div>
+          <div class="mini">15 ponqué + 30 empanadillas</div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Remesas -->
+  <section id="remesas" class="section">
+    <h2>💸 Remesas</h2>
+    <div class="card" style="padding:14px">
+      <div class="name">Remesas hasta la puerta de la casa</div>
+      <div class="price">40 000 CUP por cada $100</div>
+      <p class="mini">Todo lo que esté en dólares ($) pertenece a <b>Cubaclick</b>. Entrega segura 🧾</p>
+      <div style="display:flex; gap:10px; flex-wrap:wrap">
+        <a class="btn" href="https://wa.me/" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+        <a class="btn" href="#productos">Ver productos</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © <span id="y"></span> Cubaclick — Hecho con amor en Manzanillo, Granma.
+  </footer>
+
+  <!-- Botón flotante de carrito (móvil) -->
+  <a href="#carrito" class="cart-fab" aria-label="Abrir carrito móvil">🛒 <b id="cartCountFab">0</b></a>
+
+<script>
+  // Año en footer
+  document.getElementById('y').textContent = new Date().getFullYear();
+
+  // Scroll suave
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', e=>{
+      const id = a.getAttribute('href');
+      if(id.length>1){
+        e.preventDefault();
+        document.querySelector(id)?.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    });
+  });
+
+  // Demo: contador de carrito (puedes conectar luego a tu lógica real)
+  let count = 0;
+  const setCount = (n)=>{
+    count = n;
+    document.getElementById('cartCount').textContent = n;
+    document.getElementById('cartCountFab').textContent = n;
+  };
+  // Ejemplo: suma 1 al tocar cualquier card (quitar cuando conectes la tienda)
+  document.querySelectorAll('.card').forEach(c=>{
+    c.addEventListener('click', ()=> setCount(count+1));
+  });
+</script>
 </body>
 </html>
