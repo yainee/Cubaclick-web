@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cubaclick • Productos</title>
+<link rel="stylesheet" href="styles.css">
+</head><body>
+<header class="topbar">
+  <a class="brand" href="index.html">Cubaclick</a>
+  <nav class="nav">
+    <a class="active" href="products.html">Productos</a>
+    <a href="combos.html">Combos</a>
+    <a href="remesas.html">Remesas</a>
+    <a href="inventario.html">Inventario</a>
+    <a class="cartbtn" href="#carrito">🛒 <b id="cartCount">0</b></a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <h1>Productos por categoría</h1>
+  <div class="tabs" id="catTabs"></div>
+  <div id="grid" class="grid"></div>
+
+  <section id="carrito" class="cartbox">
+    <h2>🛒 Carrito</h2>
+    <div id="cartItems"></div>
+    <div class="cartsum">
+      <div>Total: <b id="cartTotal">$0.00</b></div>
+      <button class="btn primary" id="btnCheckout">Finalizar venta</button>
+    </div>
+  </section>
+</main>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>initProductsPage();</script>
+</body></html>
