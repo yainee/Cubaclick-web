@@ -1,4 +1,18 @@
-<!DOCTYPE html><html lang="es"><head>
+<link rel="stylesheet" href="styles.css?v=3">
+
+<!-- SOLO si quieres respaldo cuando falte productos.json -->
+<script src="data.js"></script>
+
+<script src="app.js"></script>
+<script>
+  (async ()=>{
+    await ensureCatalog();     // <— NUEVO: carga productos.json / combos.json
+    // Llama al inicializador correcto de cada página:
+    // products.html  -> initProductsPage();
+    // combos.html    -> initCombosPage();
+    // inventario.html-> initInventarioPage();
+  })();
+</script><!DOCTYPE html><html lang="es"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Cubaclick • Combos</title>
 <link rel="stylesheet" href="styles.css">
