@@ -1,40 +1,123 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Cubaclick</title>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css" />
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(180deg, #ff7a3d, #ffb36b);
+    color: #fff;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.header img {
+    width: 40px;
+}
+
+.main-title {
+    text-align: center;
+    font-size: 42px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.subtitle {
+    text-align: center;
+    margin: 10px auto;
+    font-size: 20px;
+    width: 85%;
+}
+
+.button-center {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.btn {
+    display: inline-block;
+    background: #ffe4c4;
+    color: #a33d00;
+    padding: 12px 22px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.section-title {
+    margin-top: 40px;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.categories {
+    margin: 25px auto;
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.categories a {
+    background: #fff3e6;
+    color: #a33d00;
+    padding: 12px 18px;
+    margin: 8px;
+    border-radius: 14px;
+    font-size: 20px;
+    text-decoration: none;
+    font-weight: bold;
+}
+</style>
+
 </head>
 
 <body>
 
-<header class="topbar">
-    <h1 class="logo">🇨🇺 Cubaclick</h1>
-</header>
+<!-- ENCABEZADO -->
+<div class="header">
+    <span>🇨🇺 Cubaclick</span>
+</div>
 
-<section class="hero">
-    <h2>Tu dinero y tus productos llegan a casa 🇨🇺</h2>
-    <p>Rápido, seguro y con amor. Remesas confiables y combos de primera.</p>
+<!-- TÍTULO PRINCIPAL -->
+<div class="main-title">Tu dinero y tus productos llegan a casa 🇨🇺</div>
 
-    <a class="btn-main" href="productos.html">Ver productos</a>
-</section>
+<div class="subtitle">
+    Rápido, seguro y con amor. Remesas confiables y combos de primera.
+</div>
 
-<section class="categorias">
-    <h2>🛒 Categorías disponibles</h2>
+<div class="button-center">
+    <a class="btn" href="productos.html">Ver productos</a>
+</div>
 
-    <div class="cat-grid">
-        <a href="carnes.html" class="cat">🥩 Carnes</a>
-        <a href="cocina.html" class="cat">🧂 Ingredientes de cocina</a>
-        <a href="desayunos.html" class="cat">🥐 Desayunos</a>
-        <a href="bebidas.html" class="cat">🥤 Bebidas</a>
-        <a href="aseo.html" class="cat">🧼 Aseo</a>
-        <a href="enlatados.html" class="cat">🥫 Enlatados</a>
-        <a href="granos.html" class="cat">🌾 Granos y pastas</a>
-        <a href="chuches.html" class="cat">🍬 Chuches</a>
-        <a href="otros.html" class="cat">📦 Otros productos</a>
-    </div>
-</section>
+<!-- CATEGORÍAS -->
+<div class="section-title">🛒 Categorías disponibles</div>
+
+<div class="categories">
+    <a href="carnes.html">🥩 Carnes</a>
+    <a href="cocina.html">🧂 Ingredientes de cocina</a>
+    <a href="desayunos.html">🥐 Desayunos</a>
+    <a href="bebidas.html">🥤 Bebidas</a>
+    <a href="aseo.html">🧼 Aseo</a>
+    <a href="enlatados.html">🥫 Enlatados</a>
+    <a href="granos.html">🌾 Granos y pastas</a>
+    <a href="chuches.html">🍬 Chuches</a>
+    <a href="otros.html">📦 Otros productos</a>
+</div>
 
 </body>
 </html>
