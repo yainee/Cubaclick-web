@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Cubaclick · Tienda</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <div class="container">
+    <div class="nav">
+      <div class="logo">Cubaclick</div>
+      <a href="admin.html" class="btn">Admin</a>
+    </div>
+
+    <section class="hero">
+      <figure class="hero-figure">
+        <img src="assets/cover.png" alt="Portada" onerror="this.style.display='none';document.querySelector('.figure-fallback').style.display='flex'">
+        <div class="figure-fallback" style="display:none">Portada</div>
+      </figure>
+      <div class="copy">
+        <h1>Todo para tu familia</h1>
+        <p>Elige productos, combos o remesas. Agrega al carrito y envía tu pedido por WhatsApp. Antes te pediremos los datos de tu familiar en Cuba.</p>
+        <div class="pills">
+          <button class="pill active" data-view="productos">Ver productos</button>
+          <button class="pill" data-view="combos">Combos</button>
+          <button class="pill" data-view="remesas">Remesas</button>
+        </div>
+      </div>
+    </section>
+
+    <h3 class="section-title">Destacados</h3>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <div class="cart-dock">
+    <button id="cart-toggle" class="btn">🛒 Carrito</button>
+  </div>
+  <div id="cart-panel" class="cart-panel">
+    <h4>Tu carrito</h4>
+    <div id="cart-items"></div>
+    <div class="cart-total"><span>Total</span><span id="cart-total-amt">$0.00</span></div>
+    <div style="margin-top:10px"><button id="checkout" class="btn">Enviar por WhatsApp</button></div>
+  </div>
+
+  <div id="checkout-modal" class="modal">
+    <div class="sheet">
+      <h3>Datos del destinatario</h3>
+      <label>Nombre y apellidos</label>
+      <input id="i_nombre" placeholder="Ej. María Pérez"/>
+      <label>Teléfono</label>
+      <input id="i_tel" placeholder="+53 ..."/>
+      <label>Dirección</label>
+      <input id="i_dir" placeholder="Calle, No., Municipio, Provincia"/>
+      <label>Familiar que envía</label>
+      <input id="i_fam" placeholder="Tu nombre"/>
+      <label>Nota opcional al mensajero</label>
+      <textarea id="i_nota" rows="3" placeholder="Detalles de entrega, horario, referencias..."></textarea>
+      <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end">
+        <button id="close-modal" class="btn" type="button">Cancelar</button>
+        <button id="send-wa" class="btn" type="button">Enviar WhatsApp</button>
+      </div>
+    </div>
+  </div>
+
+  <script id="seed-data" type="application/json">{"productos": [{"id": "p1", "tipo": "producto", "categoria": "Carnes y embutidos", "nombre": "Pollo (1kg)", "precio": 12.0, "stock": 50, "img": "assets/cover.png"}, {"id": "p2", "tipo": "producto", "categoria": "Abarrotes", "nombre": "Cartón huevos (30)", "precio": 14.0, "stock": 40, "img": "assets/cover.png"}, {"id": "p3", "tipo": "producto", "categoria": "Bebidas", "nombre": "Refresco 2L", "precio": 5.8, "stock": 60, "img": "assets/cover.png"}], "combos": [{"id": "c2", "tipo": "combo", "nombre": "Combo #2", "descripcion": "1 cartón de huevo\n2 lb de leche Amarillitia\n11 lb de pollo\nRegalo: 1 lata de SPAM", "precio": 40.67, "stock": 20, "img": "assets/cover.png"}], "remesas": {"tasa_usd_cup": 44000, "tasa_usd_mlc": 100, "tasa_mlc_cup": 400}, "vendedores": {"productos": {"nombre": "Vendedor Productos", "telefono": "+5355555555"}, "combos": {"nombre": "Vendedor Combos", "telefono": "+5355555556"}, "remesas": {"nombre": "Vendedor Remesas", "telefono": "+5355555557"}, "soporte": {"nombre": "Administrador", "telefono": "+5355555558"}}}</script>
+  <script src="app.js"></script>
+  <footer class="footer">© 2025 Cubaclick · MVP estático</footer>
+</body>
+</html>
