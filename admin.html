@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Admin · Cubaclick</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>.guard{max-width:560px;margin:10vh auto}.row{display:flex;gap:8px}.row>*{flex:1}</style>
+</head>
+<body>
+  <div class="container">
+    <h2 style="color:#fff">Panel administrador</h2>
+    <div id="gate" class="guard card">
+      <h3>Acceso</h3>
+      <p>Contraseña</p>
+      <input id="pass" type="password" placeholder="••••••••"/>
+      <button class="btn" id="go">Entrar</button>
+      <p style="opacity:.7">* MVP: se guarda todo en el navegador (localStorage). Cambia la contraseña en el código si lo necesitas.</p>
+    </div>
+
+    <div id="app" style="display:none">
+      <div class="hero">
+        <div class="copy">
+          <h2>Catálogo &amp; vendedores</h2>
+          <p>Agrega productos, combos, tasas de remesas y teléfonos por sección. Los pedidos llegan por WhatsApp al vendedor correspondiente.</p>
+        </div>
+      </div>
+
+      <h3 class="section-title">Productos</h3>
+      <div class="card">
+        <div class="row">
+          <input id="p_nombre" placeholder="Nombre"/>
+          <input id="p_precio" type="number" step="0.01" placeholder="Precio"/>
+          <input id="p_stock" type="number" placeholder="Stock"/>
+        </div>
+        <div class="row">
+          <input id="p_categoria" placeholder="Categoría"/>
+          <input id="p_img" placeholder="URL/archivo (pegar base64 o ruta)" />
+          <button class="btn" id="add_p">+ Agregar</button>
+        </div>
+        <table class="table" id="tbl_p"></table>
+      </div>
+
+      <h3 class="section-title">Combos</h3>
+      <div class="card">
+        <div class="row">
+          <input id="c_nombre" placeholder="Nombre"/>
+          <input id="c_precio" type="number" step="0.01" placeholder="Precio"/>
+          <input id="c_stock" type="number" placeholder="Stock"/>
+        </div>
+        <div class="row">
+          <textarea id="c_desc" rows="3" placeholder="Descripción (cada línea un ítem)"></textarea>
+          <input id="c_img" placeholder="URL/archivo"/>
+          <button class="btn" id="add_c">+ Agregar</button>
+        </div>
+        <table class="table" id="tbl_c"></table>
+      </div>
+
+      <h3 class="section-title">Remesas · Tasas</h3>
+      <div class="card">
+        <div class="row">
+          <input id="t_usd_cup" type="number" placeholder="USD→CUP"/>
+          <input id="t_usd_mlc" type="number" placeholder="USD→MLC"/>
+          <input id="t_mlc_cup" type="number" placeholder="MLC→CUP"/>
+          <button class="btn" id="save_t">Guardar</button>
+        </div>
+      </div>
+
+      <h3 class="section-title">Vendedores · WhatsApp</h3>
+      <div class="card">
+        <div class="row">
+          <input id="v_prod" placeholder="Tel. Productos (+53...)"/>
+          <input id="v_combo" placeholder="Tel. Combos (+53...)"/>
+          <input id="v_rem" placeholder="Tel. Remesas (+53...)"/>
+          <input id="v_sup" placeholder="Tel. Soporte (+53...)"/>
+          <button class="btn" id="save_v">Guardar</button>
+        </div>
+      </div>
+
+      <h3 class="section-title">Pedidos recibidos (local)</h3>
+      <div class="card">
+        <table class="table" id="tbl_o"></table>
+        <button class="btn" id="export_o">Exportar JSON</button>
+        <button class="btn" id="clear_o">Borrar todo</button>
+      </div>
+
+      <p class="footer">* Para que los vendedores también vean los pedidos, crea un grupo de WhatsApp con ellos y usa ese número como destino.</p>
+    </div>
+  </div>
+
+<script>
+const DB_KEY='cc_catalog_v1', ORDERS_KEY='cc_orders_v1', ADMIN_PASS='cubaclick2025';
+function read(){ return JSON.parse(localStorage.getItem(DB_KEY)||'{}'); }
+function write(db){ localStorage.setItem(DB_KEY, JSON.stringify(db)); }
+function money(n){ return '$'+Number(n).toFixed(2); }
+
+document.getElementById('go').onclick = ()=>{
+  if(document.getElementById('pass').value===ADMIN_PASS){
+    document.getElementById('gate').style.display='none';
+    document.getElementById('app').style.display='block';
+    load();
+  } else alert('Contraseña incorrecta');
+};
+
+function load(){
+  const db = read();
+  // products table
+  const tp = document.getElementById('tbl_p'); tp.innerHTML='<tr><th>Nombre</th><th>Precio</th><th>Stock</th><th>Categoría</th><th></th></tr>';
+  (db.productos||[]).forEach((p,i)=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td contenteditable>${p.nombre}</td><td contenteditable>${p.precio}</td><td contenteditable>${p.stock}</td><td contenteditable>${p.categoria||''}</td><td><button data-i="${i}" class="del">🗑</button></td>`;
+    tp.appendChild(tr);
+  });
+  tp.querySelectorAll('.del').forEach(btn=>btn.onclick=()=>{ db.productos.splice(btn.dataset.i,1); write(db); load(); });
+  // combos table
+  const tc = document.getElementById('tbl_c'); tc.innerHTML='<tr><th>Nombre</th><th>Precio</th><th>Stock</th><th>Descripción</th><th></th></tr>';
+  (db.combos||[]).forEach((c,i)=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td contenteditable>${c.nombre}</td><td contenteditable>${c.precio}</td><td contenteditable>${c.stock}</td><td contenteditable>${c.descripcion||''}</td><td><button data-i="${i}" class="delc">🗑</button></td>`;
+    tc.appendChild(tr);
+  });
+  tc.querySelectorAll('.delc').forEach(btn=>btn.onclick=()=>{ db.combos.splice(btn.dataset.i,1); write(db); load(); });
+
+  // tasas
+  document.getElementById('t_usd_cup').value = db.remesas?.tasa_usd_cup || '';
+  document.getElementById('t_usd_mlc').value = db.remesas?.tasa_usd_mlc || '';
+  document.getElementById('t_mlc_cup').value = db.remesas?.tasa_mlc_cup || '';
+
+  // vendedores
+  document.getElementById('v_prod').value = db.vendedores?.productos?.telefono||'';
+  document.getElementById('v_combo').value = db.vendedores?.combos?.telefono||'';
+  document.getElementById('v_rem').value = db.vendedores?.remesas?.telefono||'';
+  document.getElementById('v_sup').value = db.vendedores?.soporte?.telefono||'';
+
+  // orders
+  const orders = JSON.parse(localStorage.getItem(ORDERS_KEY)||'[]');
+  const to = document.getElementById('tbl_o'); to.innerHTML='<tr><th>Fecha</th><th>Cliente</th><th>Sección</th><th>Total</th></tr>';
+  orders.slice().reverse().forEach(o=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${new Date(o.when).toLocaleString()}</td><td>${o.cliente?.nombre} · ${o.cliente?.tel}</td><td>${o.routed_to}</td><td>${money(o.total)}</td>`;
+    to.appendChild(tr);
+  });
+}
+
+document.getElementById('add_p').onclick = ()=>{
+  const db = read();
+  db.productos = db.productos||[];
+  db.productos.push({id:'p'+Date.now(), tipo:'producto',
+    nombre:document.getElementById('p_nombre').value,
+    precio:Number(document.getElementById('p_precio').value||0),
+    stock:Number(document.getElementById('p_stock').value||0),
+    categoria:document.getElementById('p_categoria').value,
+    img:document.getElementById('p_img').value||'assets/cover.png'
+  });
+  write(db); load();
+};
+
+document.getElementById('add_c').onclick = ()=>{
+  const db = read();
+  db.combos = db.combos||[];
+  db.combos.push({id:'c'+Date.now(), tipo:'combo',
+    nombre:document.getElementById('c_nombre').value,
+    precio:Number(document.getElementById('c_precio').value||0),
+    stock:Number(document.getElementById('c_stock').value||0),
+    descripcion:document.getElementById('c_desc').value,
+    img:document.getElementById('c_img').value||'assets/cover.png'
+  });
+  write(db); load();
+};
+
+document.getElementById('save_t').onclick = ()=>{
+  const db = read();
+  db.remesas = {
+    tasa_usd_cup: Number(document.getElementById('t_usd_cup').value||0),
+    tasa_usd_mlc: Number(document.getElementById('t_usd_mlc').value||0),
+    tasa_mlc_cup: Number(document.getElementById('t_mlc_cup').value||0),
+  };
+  write(db); alert('Tasas guardadas');
+};
+
+document.getElementById('save_v').onclick = ()=>{
+  const db = read();
+  db.vendedores = {
+    productos:{telefono: document.getElementById('v_prod').value},
+    combos:{telefono: document.getElementById('v_combo').value},
+    remesas:{telefono: document.getElementById('v_rem').value},
+    soporte:{telefono: document.getElementById('v_sup').value}
+  };
+  write(db); alert('Teléfonos guardados');
+};
+
+document.getElementById('export_o').onclick = ()=>{
+  const data = localStorage.getItem(ORDERS_KEY)||'[]';
+  const blob = new Blob([data], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'pedidos.json';
+  a.click();
+};
+
+document.getElementById('clear_o').onclick = ()=>{
+  if(confirm('¿Borrar todos los pedidos locales?')){ localStorage.removeItem(ORDERS_KEY); load(); }
+};
+</script>
+</body>
+</html>
